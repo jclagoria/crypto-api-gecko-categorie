@@ -17,6 +17,9 @@ public class ApiRouter {
 
  @Value("${coins.healthAPI}")
  private String URL_HEALTH_GECKO_API;
+
+ @Value("${coins.listCategories}")
+ private String URL_CATEGORIE_API;
  
  @Bean
  public RouterFunction<ServerResponse> route(CategoriesApiHandler handler) {
@@ -25,6 +28,8 @@ public class ApiRouter {
             .route()
             .GET(URL_SERVICE_API + URL_HEALTH_GECKO_API, 
                         handler::getStatusServiceCoinGecko)
+            .GET(URL_SERVICE_API + URL_CATEGORIE_API, 
+                        handler::getListOfCategories)
             .build();
 
  }
