@@ -4,7 +4,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
+import ar.com.api.categories.dto.CategorieDTO;
 import ar.com.api.categories.model.Categorie;
+import ar.com.api.categories.model.CategorieMarket;
 import ar.com.api.categories.model.Ping;
 import ar.com.api.categories.services.CategoriesApiService;
 import ar.com.api.categories.services.CoinGeckoServiceStatus;
@@ -33,7 +35,7 @@ public class CategoriesApiHandler {
  }
 
  public Mono<ServerResponse> getListOfCategories(ServerRequest sRequest) {
-     
+
      log.info("In getListOfCategories");
 
      return ServerResponse
@@ -42,6 +44,24 @@ public class CategoriesApiHandler {
                          serviceCategorie.getListOfCategories(),
                          Categorie.class
                     );
+ }
+
+ public Mono<ServerResponse> getListCategoriesWithMarketData(ServerRequest sRequest) {
+
+     log.info("In getListCategoriesWithMarketData");
+
+     CategorieDTO filterDto = CategorieDTO
+                    .builder()
+                    .order(sRequest.queryParam("order"))
+                    .build();
+
+     return ServerResponse
+                    .ok()
+                    .body(
+                         serviceCategorie.getListCategoriesByMarket(filterDto), 
+                         CategorieMarket.class
+                         );
+
  }
 
 }
