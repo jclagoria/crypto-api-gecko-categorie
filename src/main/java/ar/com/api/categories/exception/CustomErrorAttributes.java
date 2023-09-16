@@ -1,7 +1,7 @@
 package ar.com.api.categories.exception;
 
-import ar.com.api.general.exception.external.CoinGeckoBadRequestException;
-import ar.com.api.general.exception.external.CoinGeckoServerException;
+import ar.com.api.categories.exception.external.CoinGeckoBadRequestException;
+import ar.com.api.categories.exception.external.CoinGeckoServerException;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.reactive.error.DefaultErrorAttributes;
 import org.springframework.context.annotation.Configuration;
