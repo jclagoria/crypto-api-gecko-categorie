@@ -7,9 +7,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import ar.com.api.categories.dto.CategorieDTO;
 import ar.com.api.categories.model.Categorie;
 import ar.com.api.categories.model.CategorieMarket;
-import ar.com.api.categories.model.Ping;
 import ar.com.api.categories.services.CategoriesApiService;
-import ar.com.api.categories.services.CoinGeckoServiceStatus;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
@@ -18,21 +16,8 @@ import reactor.core.publisher.Mono;
 @AllArgsConstructor
 @Slf4j
 public class CategoriesApiHandler {
- 
- private CoinGeckoServiceStatus serviceStatus;
 
- private CategoriesApiService serviceCategorie;
-
- public Mono<ServerResponse> getStatusServiceCoinGecko(ServerRequest serverRequest) {
-
-  log.info("In getStatusServiceCoinGecko");
-
-  return ServerResponse
-                .ok()
-                .body(
-                     serviceStatus.getStatusCoinGeckoService(), 
-                     Ping.class);
- }
+ private CategoriesApiService serviceCategories;
 
  public Mono<ServerResponse> getListOfCategories(ServerRequest sRequest) {
 
@@ -41,7 +26,7 @@ public class CategoriesApiHandler {
      return ServerResponse
                     .ok()
                     .body(
-                         serviceCategorie.getListOfCategories(),
+                         serviceCategories.getListOfCategories(),
                          Categorie.class
                     );
  }
@@ -58,7 +43,7 @@ public class CategoriesApiHandler {
      return ServerResponse
                     .ok()
                     .body(
-                         serviceCategorie.getListCategoriesByMarket(filterDto), 
+                         serviceCategories.getListCategoriesByMarket(filterDto),
                          CategorieMarket.class
                          );
 

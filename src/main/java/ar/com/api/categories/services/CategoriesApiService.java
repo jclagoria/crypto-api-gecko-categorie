@@ -1,6 +1,8 @@
 package ar.com.api.categories.services;
 
+import ar.com.api.categories.exception.ManageExceptionCoinGeckoServiceApi;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -12,13 +14,13 @@ import reactor.core.publisher.Flux;
 
 @Service
 @Slf4j
-public class CategoriesApiService {
+public class CategoriesApiService extends CoinGeckoServiceApi {
 
  @Value("${api.listCategories}")
- private String URL_GET_LIST_CATAGORIES_API;
+ private String URL_GET_LIST_CATEGORIES_API;
 
  @Value("${api.listCategoriesMarketData}")
- private String URL_GET_LIST_CATAGORIES_WITH_MARKET_DATA_API;
+ private String URL_GET_LIST_CATEGORIES_WITH_MARKET_DATA_API;
 
  private WebClient webClient;
 
@@ -28,30 +30,48 @@ public class CategoriesApiService {
 
  public Flux<Categorie> getListOfCategories() {
 
-  log.info("In getlistOfCategories() to call api ", 
-             URL_GET_LIST_CATAGORIES_API);
+  log.info("In getlistOfCategories() to call api ",
+          URL_GET_LIST_CATEGORIES_API);
 
   return webClient
-              .get()
-              .uri(URL_GET_LIST_CATAGORIES_API)
-              .retrieve()
-              .bodyToFlux(Categorie.class)
-              .doOnError(throwable -> log.error("The service is unavailable!", throwable))
-              .onErrorComplete();
+          .get()
+          .uri(URL_GET_LIST_CATEGORIES_API)
+          .retrieve()
+          .onStatus(
+                  HttpStatusCode::is4xxClientError,
+                  getClientResponseMonoDataException()
+          )
+          .onStatus(
+                  HttpStatusCode::is5xxServerError,
+                  getClientResponseMonoServerException()
+          )
+          .bodyToFlux(Categorie.class)
+          .doOnError(
+                  ManageExceptionCoinGeckoServiceApi::throwServiceException
+          );
  }
 
  public Flux<CategorieMarket> getListCategoriesByMarket(CategorieDTO filterDTO) {
 
-  log.info("In getListCategoriesByMarket() to call api ", 
-              URL_GET_LIST_CATAGORIES_WITH_MARKET_DATA_API);
+  log.info("In getListCategoriesByMarket() to call api ",
+          URL_GET_LIST_CATEGORIES_WITH_MARKET_DATA_API);
   
   return webClient
-            .get()
-            .uri(URL_GET_LIST_CATAGORIES_WITH_MARKET_DATA_API + filterDTO.getUrlService())
-            .retrieve()
-            .bodyToFlux(CategorieMarket.class)
-            .doOnError(throwable -> log.error("The service is unavailable!", throwable))
-            .onErrorComplete();
+          .get()
+          .uri(URL_GET_LIST_CATEGORIES_WITH_MARKET_DATA_API + filterDTO.getUrlService())
+          .retrieve()
+          .onStatus(
+                  HttpStatusCode::is4xxClientError,
+                  getClientResponseMonoDataException()
+          )
+          .onStatus(
+                  HttpStatusCode::is5xxServerError,
+                  getClientResponseMonoServerException()
+          )
+          .bodyToFlux(CategorieMarket.class)
+          .doOnError(
+                  ManageExceptionCoinGeckoServiceApi::throwServiceException
+          );
  }
  
 }
