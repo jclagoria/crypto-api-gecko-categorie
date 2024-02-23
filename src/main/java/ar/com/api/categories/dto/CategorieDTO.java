@@ -1,9 +1,9 @@
 package ar.com.api.categories.dto;
 
-import java.util.Optional;
-
 import lombok.Builder;
 import lombok.Getter;
+
+import java.util.Optional;
 
 @Getter
 @Builder

@@ -1,5 +1,6 @@
 package ar.com.api.categories.router;
 
+import ar.com.api.categories.handler.CategoriesApiHandler;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,8 +9,6 @@ import org.springframework.web.reactive.function.server.RequestPredicates;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
-
-import ar.com.api.categories.handler.CategoriesApiHandler;
 
 @Configuration
 public class CategoriesApiRouter {

@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CategorieMarket {
+public class CategoryMarket {
 
     @JsonProperty("id")
     private String id;
@@ -25,7 +25,7 @@ public class CategorieMarket {
 
     @JsonProperty("content")
     private String content;
-S
+
     @JsonProperty("top_3_coins")
     private List<String> top3Coins;
 

@@ -1,15 +1,14 @@
 package ar.com.api.categories.handler;
 
-import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.server.ServerRequest;
-import org.springframework.web.reactive.function.server.ServerResponse;
-
 import ar.com.api.categories.dto.CategorieDTO;
 import ar.com.api.categories.model.Categorie;
-import ar.com.api.categories.model.CategorieMarket;
+import ar.com.api.categories.model.CategoryMarket;
 import ar.com.api.categories.services.CategoriesApiService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.server.ServerRequest;
+import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
 @Component
@@ -44,7 +43,7 @@ public class CategoriesApiHandler {
                 .ok()
                 .body(
                         serviceCategories.getListCategoriesByMarket(filterDto),
-                        CategorieMarket.class
+                        CategoryMarket.class
                 );
 
     }
