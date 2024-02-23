@@ -13,28 +13,28 @@ import ar.com.api.categories.handler.CategoriesApiHandler;
 
 @Configuration
 public class CategoriesApiRouter {
- 
- @Value("${coins.baseURL}")
- private String URL_SERVICE_API;
 
- @Value("${coins.listCategories}")
- private String URL_CATEGORIES_API;
+    @Value("${coins.baseURL}")
+    private String URL_SERVICE_API;
 
- @Value("${coins.listCategoriesMarketData}")
- private String URL_CATEGORIES_WITH_MARKET_DATA_API;
- 
- @Bean
- public RouterFunction<ServerResponse> routeCategoriesApi(CategoriesApiHandler handler) {
+    @Value("${coins.listCategories}")
+    private String URL_CATEGORIES_API;
 
-  return RouterFunctions
-            .route()
-            .GET(URL_SERVICE_API + URL_CATEGORIES_API,
+    @Value("${coins.listCategoriesMarketData}")
+    private String URL_CATEGORIES_WITH_MARKET_DATA_API;
+
+    @Bean
+    public RouterFunction<ServerResponse> routeCategoriesApi(CategoriesApiHandler handler) {
+
+        return RouterFunctions
+                .route()
+                .GET(URL_SERVICE_API + URL_CATEGORIES_API,
                         handler::getListOfCategories)
-            .GET(URL_SERVICE_API + URL_CATEGORIES_WITH_MARKET_DATA_API,
+                .GET(URL_SERVICE_API + URL_CATEGORIES_WITH_MARKET_DATA_API,
                         RequestPredicates.accept(MediaType.APPLICATION_JSON),
                         handler::getListCategoriesWithMarketData)
-            .build();
+                .build();
 
- }
+    }
 
 }

@@ -17,36 +17,36 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class CategoriesApiHandler {
 
- private CategoriesApiService serviceCategories;
+    private CategoriesApiService serviceCategories;
 
- public Mono<ServerResponse> getListOfCategories(ServerRequest sRequest) {
+    public Mono<ServerResponse> getListOfCategories(ServerRequest sRequest) {
 
-     log.info("In getListOfCategories");
+        log.info("In getListOfCategories");
 
-     return ServerResponse
-                    .ok()
-                    .body(
-                         serviceCategories.getListOfCategories(),
-                         Categorie.class
-                    );
- }
+        return ServerResponse
+                .ok()
+                .body(
+                        serviceCategories.getListOfCategories(),
+                        Categorie.class
+                );
+    }
 
- public Mono<ServerResponse> getListCategoriesWithMarketData(ServerRequest sRequest) {
+    public Mono<ServerResponse> getListCategoriesWithMarketData(ServerRequest sRequest) {
 
-     log.info("In getListCategoriesWithMarketData");
+        log.info("In getListCategoriesWithMarketData");
 
-     CategorieDTO filterDto = CategorieDTO
-                    .builder()
-                    .order(sRequest.queryParam("order"))
-                    .build();
+        CategorieDTO filterDto = CategorieDTO
+                .builder()
+                .order(sRequest.queryParam("order"))
+                .build();
 
-     return ServerResponse
-                    .ok()
-                    .body(
-                         serviceCategories.getListCategoriesByMarket(filterDto),
-                         CategorieMarket.class
-                         );
+        return ServerResponse
+                .ok()
+                .body(
+                        serviceCategories.getListCategoriesByMarket(filterDto),
+                        CategorieMarket.class
+                );
 
- }
+    }
 
 }

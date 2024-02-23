@@ -16,6 +16,7 @@ public class HealtApiRouter {
 
     @Value("${coins.healthAPI}")
     private String URL_HEALTH_GECKO_API;
+
     @Bean
     public RouterFunction<ServerResponse> routeHealthApi(HealthApiHandler handler) {
         return RouterFunctions

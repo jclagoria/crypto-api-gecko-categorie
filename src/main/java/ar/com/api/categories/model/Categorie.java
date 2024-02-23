@@ -10,11 +10,11 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Categorie implements Serializable {
- 
- @JsonProperty("category_id")
- private String categoryId;
 
- @JsonProperty("name")
- private String name;
+    @JsonProperty("category_id")
+    private String categoryId;
+
+    @JsonProperty("name")
+    private String name;
 
 }

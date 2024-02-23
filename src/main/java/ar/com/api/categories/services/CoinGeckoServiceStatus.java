@@ -11,26 +11,26 @@ import reactor.core.publisher.Mono;
 @Service
 @Slf4j
 public class CoinGeckoServiceStatus {
- 
- @Value("${api.ping}")       
- private String URL_PING_SERVICE;
 
- private WebClient webClient;
+    @Value("${api.ping}")
+    private String URL_PING_SERVICE;
 
- public CoinGeckoServiceStatus(WebClient webClient) {
-  this.webClient = webClient;
- }
+    private WebClient webClient;
 
- public Mono<Ping> getStatusCoinGeckoService() {
-  
-  log.info("Calling method: ", URL_PING_SERVICE); 
+    public CoinGeckoServiceStatus(WebClient webClient) {
+        this.webClient = webClient;
+    }
 
-  return webClient
-         .get()
-         .uri(URL_PING_SERVICE)
-         .retrieve()
-         .bodyToMono(Ping.class)
-         .doOnError(throwable -> log.error("The service is unavailable!", throwable));
- }
+    public Mono<Ping> getStatusCoinGeckoService() {
+
+        log.info("Calling method: ", URL_PING_SERVICE);
+
+        return webClient
+                .get()
+                .uri(URL_PING_SERVICE)
+                .retrieve()
+                .bodyToMono(Ping.class)
+                .doOnError(throwable -> log.error("The service is unavailable!", throwable));
+    }
 
 }

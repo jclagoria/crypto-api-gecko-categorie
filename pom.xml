@@ -55,6 +55,11 @@
 			<artifactId>reactor-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.instancio</groupId>
+			<artifactId>instancio</artifactId>
+			<version>1.0.4</version>
+		</dependency>
 	</dependencies>
 
 	<build>
