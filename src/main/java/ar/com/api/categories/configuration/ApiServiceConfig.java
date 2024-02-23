@@ -1,14 +1,17 @@
 package ar.com.api.categories.configuration;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 @Component
 @ConfigurationProperties(prefix = "coins")
+@Getter
+@Setter
 public class ApiServiceConfig {
 
-    private String baseUrl;
-    private String healthApi;
+    private String baseURL;
+    private String healthAPI;
 
 }
