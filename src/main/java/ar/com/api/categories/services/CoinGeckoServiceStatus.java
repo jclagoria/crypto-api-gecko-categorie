@@ -1,5 +1,6 @@
 package ar.com.api.categories.services;
 
+import ar.com.api.categories.configuration.HttpServiceCall;
 import ar.com.api.categories.model.Ping;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,22 +15,17 @@ public class CoinGeckoServiceStatus {
     @Value("${api.ping}")
     private String URL_PING_SERVICE;
 
-    private WebClient webClient;
+    private final HttpServiceCall httpServiceCall;
 
-    public CoinGeckoServiceStatus(WebClient webClient) {
-        this.webClient = webClient;
+    public CoinGeckoServiceStatus(HttpServiceCall httpServiceCall) {
+        this.httpServiceCall = httpServiceCall;
     }
 
     public Mono<Ping> getStatusCoinGeckoService() {
 
         log.info("Calling method: ", URL_PING_SERVICE);
 
-        return webClient
-                .get()
-                .uri(URL_PING_SERVICE)
-                .retrieve()
-                .bodyToMono(Ping.class)
-                .doOnError(throwable -> log.error("The service is unavailable!", throwable));
+        return httpServiceCall.getMonoObject(URL_PING_SERVICE, Ping.class);
     }
 
 }
