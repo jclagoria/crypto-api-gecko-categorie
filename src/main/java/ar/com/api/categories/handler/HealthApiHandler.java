@@ -14,17 +14,18 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class HealthApiHandler {
 
-    private CoinGeckoServiceStatus serviceStatus;
+    private final CoinGeckoServiceStatus serviceStatus;
 
     public Mono<ServerResponse> getStatusServiceCoinGecko(ServerRequest serverRequest) {
 
-        log.info("In getStatusServiceCoinGecko");
+        log.info("In getStatusServiceCoinGecko, handling request: {}", serverRequest);
 
-        return ServerResponse
-                .ok()
-                .body(
-                        serviceStatus.getStatusCoinGeckoService(),
-                        Ping.class);
+        return serviceStatus.getStatusCoinGeckoService()
+                .flatMap(ping -> ServerResponse.ok().bodyValue(ping))
+                .onErrorResume( e -> {
+                    log.error("Error fetching CoinGecko service status", e);
+                    return ServerResponse.status(500).bodyValue(e.getMessage());
+                });
     }
 
 }
