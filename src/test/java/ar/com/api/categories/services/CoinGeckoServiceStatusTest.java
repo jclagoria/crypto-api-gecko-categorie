@@ -8,6 +8,7 @@ import ar.com.api.categories.model.Ping;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -40,6 +41,7 @@ class CoinGeckoServiceStatusTest {
     }
 
     @Test
+    @DisplayName("Ensure successful retrieval of CoinGecko service status")
     void getStatusCoinGeckoServiceTest_successfullyReturnObject() {
         Ping expectedPingObject = Instancio.create(Ping.class);
         when(httpServiceCallMock.getMonoObject(eq("pingUrlGeckoMock"), eq(Ping.class)))
@@ -56,6 +58,7 @@ class CoinGeckoServiceStatusTest {
     }
 
     @Test
+    @DisplayName("Handle 4xx errors when retrieving CoinGecko service status")
     void getStatusCoinGeckoServiceTest_handlesOnStatus4xx() {
         when(httpServiceCallMock.getMonoObject(eq("pingUrlGeckoMock"), eq(Ping.class)))
                 .thenReturn(Mono.error(new ApiServerErrorException("Failed to retrieve info", "Failed Dependency",
@@ -74,6 +77,7 @@ class CoinGeckoServiceStatusTest {
     }
 
     @Test
+    @DisplayName("Handle 5xx errors when retrieving CoinGecko service status")
     void getStatusCoinGeckoServiceTest_handlesOnStatus5xx() {
         when(httpServiceCallMock.getMonoObject(eq("pingUrlGeckoMock"), eq(Ping.class)))
                 .thenReturn(Mono.error(new ApiServerErrorException("Server Error", "un expected error on server occurred",
