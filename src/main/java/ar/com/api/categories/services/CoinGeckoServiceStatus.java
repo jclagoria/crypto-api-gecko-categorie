@@ -1,5 +1,6 @@
 package ar.com.api.categories.services;
 
+import ar.com.api.categories.configuration.ExternalServerConfig;
 import ar.com.api.categories.configuration.HttpServiceCall;
 import ar.com.api.categories.model.Ping;
 import lombok.extern.slf4j.Slf4j;
@@ -12,20 +13,19 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class CoinGeckoServiceStatus {
 
-    @Value("${api.ping}")
-    private String URL_PING_SERVICE;
-
     private final HttpServiceCall httpServiceCall;
+    private final ExternalServerConfig externalServerConfig;
 
-    public CoinGeckoServiceStatus(HttpServiceCall httpServiceCall) {
+    public CoinGeckoServiceStatus(HttpServiceCall httpServiceCall, ExternalServerConfig serverConfig) {
         this.httpServiceCall = httpServiceCall;
+        this.externalServerConfig = serverConfig;
     }
 
     public Mono<Ping> getStatusCoinGeckoService() {
 
-        log.info("Calling method: ", URL_PING_SERVICE);
+        log.info("Calling method {} : ", externalServerConfig.getPing());
 
-        return httpServiceCall.getMonoObject(URL_PING_SERVICE, Ping.class);
+        return httpServiceCall.getMonoObject(externalServerConfig.getPing(), Ping.class);
     }
 
 }
