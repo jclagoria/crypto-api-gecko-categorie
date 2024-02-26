@@ -13,5 +13,7 @@ public class ApiServiceConfig {
 
     private String baseURL;
     private String healthAPI;
+    private String listCategories;
+    private String listCategoriesMarketData;
 
 }

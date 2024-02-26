@@ -13,5 +13,7 @@ public class ExternalServerConfig {
 
     private String urlCoinGecko;
     private String ping;
+    private String listCategories;
+    private String listCategoriesMarketData;
 
 }

@@ -6,6 +6,7 @@ import org.instancio.Instancio;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
@@ -26,12 +27,12 @@ class HealthApiHandlerTest {
     @Mock
     private ServerRequest sererRequestMock;
 
+    @InjectMocks
     private HealthApiHandler apiHandler;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        apiHandler = new HealthApiHandler(serviceStatusMock);
     }
 
     @AfterEach
