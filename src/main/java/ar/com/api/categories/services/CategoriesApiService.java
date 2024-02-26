@@ -12,7 +12,7 @@ import reactor.core.publisher.Flux;
 
 @Service
 @Slf4j
-public class CategoriesApiService extends CoinGeckoServiceApi {
+public class CategoriesApiService {
 
     @Value("${api.listCategoriesMarketData}")
     private String URL_GET_LIST_CATEGORIES_WITH_MARKET_DATA_API;
