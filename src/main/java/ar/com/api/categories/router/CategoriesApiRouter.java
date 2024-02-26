@@ -14,12 +14,6 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 @Configuration
 public class CategoriesApiRouter {
 
-    @Value("${coins.baseURL}")
-    private String URL_SERVICE_API;
-
-    @Value("${coins.listCategoriesMarketData}")
-    private String URL_CATEGORIES_WITH_MARKET_DATA_API;
-
     private ApiServiceConfig apiServiceConfig;
 
     public CategoriesApiRouter(ApiServiceConfig serviceConfig) {
@@ -33,9 +27,8 @@ public class CategoriesApiRouter {
                 .route()
                 .GET(apiServiceConfig.getBaseURL() +
                                 apiServiceConfig.getListCategories(),
-                        RequestPredicates.accept(MediaType.APPLICATION_JSON),
                         handler::getListOfCategories)
-                .GET(URL_SERVICE_API + URL_CATEGORIES_WITH_MARKET_DATA_API,
+                .GET(apiServiceConfig.getBaseURL() + apiServiceConfig.getListCategoriesMarketData(),
                         RequestPredicates.accept(MediaType.APPLICATION_JSON),
                         handler::getListCategoriesWithMarketData)
                 .build();

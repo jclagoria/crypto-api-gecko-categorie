@@ -57,8 +57,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.instancio</groupId>
-			<artifactId>instancio</artifactId>
-			<version>1.0.4</version>
+			<artifactId>instancio-core</artifactId>
+			<version>4.3.1</version>
 		</dependency>
 	</dependencies>
 

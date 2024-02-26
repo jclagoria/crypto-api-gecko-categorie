@@ -6,16 +6,12 @@ import ar.com.api.categories.dto.CategorieDTO;
 import ar.com.api.categories.model.Categorie;
 import ar.com.api.categories.model.CategoryMarket;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
 @Service
 @Slf4j
 public class CategoriesApiService {
-
-    @Value("${api.listCategoriesMarketData}")
-    private String URL_GET_LIST_CATEGORIES_WITH_MARKET_DATA_API;
 
     private ExternalServerConfig externalServerConfig;
 
@@ -36,10 +32,12 @@ public class CategoriesApiService {
 
     public Flux<CategoryMarket> getListCategoriesByMarket(CategorieDTO filterDTO) {
 
-        log.info("In getListCategoriesByMarket() to call api ",
-                URL_GET_LIST_CATEGORIES_WITH_MARKET_DATA_API);
+        log.info("In getListCategoriesByMarket() to call ap: {} ",
+                externalServerConfig.getListCategoriesMarketData()
+                        + filterDTO.getUrlService());
 
-        return null;
+        return httpServiceCall.getFluxObject(externalServerConfig.getListCategoriesMarketData()
+                + filterDTO.getUrlService(), CategoryMarket.class);
     }
 
 }
